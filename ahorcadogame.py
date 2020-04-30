@@ -94,10 +94,36 @@ def run():
 
     while True:
         display_board(hidden_word, tries)
-        current_letter = str(input('escoge una letra'))
-    pass
+        current_letter = str(input('escribe una letra:'))
+
+        letter_indexes = [] 
+        for idx in range(len(word)):
+            if word[idx] == current_letter:
+                letter_indexes.append(idx)
+
+            if len(letter_indexes) == 0:
+                tries += 1
+
+                if tries == 8:
+                    display_board(hidden_word, tries)
+                    print('')
+                    print('¡Perdiste! La palabra correcta es: {}'.format(word))
+                    break
+
+                else:
+                    for idx in letter_indexes:
+                        hidden_word = current_letter
+
+                        letter_indexes = []
+
+                        try:
+                            hidden_word.index('-')
+                        except ValueError:
+                            print('')
+                            print('¡Muy bien! Ganaste. La palabra es: {}'.format(word))
+                            break
 
 
 if __name__ == '__main__':
-     print('Bienvenidos a ahorcado jueguito')
+     print('Bienvenidos a ahorcado')
      run()
